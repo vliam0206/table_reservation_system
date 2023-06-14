@@ -9,4 +9,5 @@ namespace Application.IServices;
 public interface IClaimService
 {
     public Guid GetCurrentUserId { get; }
+    public string GetCurrentUserName { get; }
 }

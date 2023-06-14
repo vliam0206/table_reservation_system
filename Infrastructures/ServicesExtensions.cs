@@ -1,4 +1,7 @@
 ﻿using DataAccess;
+using Infrastructures.IRepositories;
+using Infrastructures.Repositories;
+using Infrastructures.UnitOfWorks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,7 +45,9 @@ public static class ServicesExtensions
 
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
+        services.AddScoped<IAccountRepository, AccountRepository>();
 
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
