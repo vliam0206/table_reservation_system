@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,21 +23,21 @@ public class AppDBContext : DbContext
     #endregion
 
     #region Connect DB
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
-    {
-        if (!optionsbuilder.IsConfigured)
-        {
-            optionsbuilder.UseSqlServer(GetConnectionStrings());
-        }
-    }
-    private string GetConnectionStrings()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-         .SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json", true, true)
-        .Build();
-        return config["ConnectionStrings:DefaultDB"];
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
+    //{
+    //    if (!optionsbuilder.IsConfigured)
+    //    {
+    //        optionsbuilder.UseSqlServer(GetConnectionStrings());
+    //    }
+    //}
+    //private string GetConnectionStrings()
+    //{
+    //    IConfiguration config = new ConfigurationBuilder()
+    //     .SetBasePath(Directory.GetCurrentDirectory())
+    //    .AddJsonFile("appsettings.json", true, true)
+    //    .Build();
+    //    return config["ConnectionStrings:DefaultDB"];
+    //}
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
