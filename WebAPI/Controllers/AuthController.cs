@@ -1,6 +1,8 @@
 ﻿using Application.Commons;
+using Application.IServices;
 using Application.Utils;
 using Infrastructures.UnitOfWorks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
 using WebAPI.Models.AuthModels;
@@ -15,11 +17,18 @@ namespace WebAPI.Controllers
     {
         private AppConfiguration _configuration;
         private IUnitOfWork _unitOfWork;
+        private IJwtBlacklistService _jwtBlacklistService;
+        private IClaimService _claimService;
 
-        public AuthController(IUnitOfWork unitOfWork, AppConfiguration configuration)
+        public AuthController(IUnitOfWork unitOfWork, 
+                                    AppConfiguration configuration,
+                                    IJwtBlacklistService blacklistService,
+                                    IClaimService claimService)
         {
             _unitOfWork = unitOfWork;
             _configuration = configuration;
+            _jwtBlacklistService = blacklistService;
+            _claimService = claimService;
         }
 
         [HttpPost("login")]
@@ -35,12 +44,11 @@ namespace WebAPI.Controllers
                     response.ErrorMessage = "Wrong username/password!";
                 } else
                 {
-                    var tokenModel = new TokenModel();
-                    tokenModel.Token = account.GenerateJsonWebToken(
+                    var token = account.GenerateJsonWebToken(
                                                         _configuration.JwtConfiguration.SecretKey,
                                                         DateTime.Now);
                     response.Success = true;
-                    response.Data = tokenModel;
+                    response.Data = token;
                 }
             } catch (Exception ex)
             {
@@ -49,14 +57,65 @@ namespace WebAPI.Controllers
             }
             return Ok(response);
         }
+
+        [HttpGet("current-id")]
+        [Authorize]
+        public IActionResult GetCurrentId()
+        {
+            var response = new ApiResponse()
+            {
+                Success = true,
+                Data = _claimService.GetCurrentUserId
+            };
+            return Ok(response);
+        }
+
+        [HttpGet("current-username")]
+        [Authorize]
+        public IActionResult GetCurrentUserName()
+        {
+            var response = new ApiResponse()
+            {
+                Success = true,
+                Data = _claimService.GetCurrentUserName
+            };
+            return Ok(response);
+        }
+
         [HttpPost("logout")]
+        [Authorize]
         public IActionResult Logout()
         {
-            // Perform logout logic
-            // ...
-
-            // Return a successful response or a specific message indicating successful logout
-            return Ok(new { Message = "Logged out successfully" });
+            return Ok(new ApiResponse()
+            {
+                Success = false,
+                ErrorMessage = "This Log Out api is just used to log out in Postman. Log out must be implemented in client-side."
+            });
         }
+
+        //[HttpPost("logout")]
+        //[Authorize]
+        //public IActionResult Logout()
+        //{
+        //    var response = new ApiResponse();
+        //    // Get the token from the request (from header)
+        //    string token = GetTokenFromRequest();
+        //    // Revoke the token by adding it to the blacklist
+        //    _jwtBlacklistService.RevokeToken(token);
+
+        //    return Ok(new ApiResponse() { Success=true });
+        //}
+
+        //private string GetTokenFromRequest()
+        //{
+        //    string authorizationHeader = Request.Headers["Authorization"];
+        //    if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        return authorizationHeader.Substring("Bearer ".Length).Trim();
+        //    }
+
+        //    return null;
+        //}
+
     }
 }
