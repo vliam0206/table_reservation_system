@@ -11,9 +11,8 @@ namespace Domain.Entities;
 public class Reservation : BaseEntity
 {
     #region Properties
-    public DateTime DateTimeBooking { get; set; } = default!;
+    public DateTime DateTimeBooking { get; set; } = default!; //Format: "M/d/yyyy 09:00:00"
     public int CustomerQuantity { get; set; } = 0;
-    public Guid TableId { get; set; }
     public Guid CustomerId { get; set; }
     [MaxLength(250)]
     public string? Note { get; set; }
