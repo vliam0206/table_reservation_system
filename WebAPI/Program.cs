@@ -33,10 +33,6 @@ builder.Services.AddSwaggerGen(opt =>
 {
     opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Table Reservation System APIs", Version = "v1" });
 
-    //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    //opt.IncludeXmlComments(xmlPath);
-
     opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
@@ -73,16 +69,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+// Use routing
+app.UseRouting();
 // Initialize data for DB
 SeedDatabase();
 
 //use authentication to use jwt
 app.UseAuthentication();
 app.UseAuthorization();
-
-// Use routing
-app.UseRouting();
 
 app.MapControllers();
 
