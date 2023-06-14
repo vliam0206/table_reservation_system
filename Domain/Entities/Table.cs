@@ -15,5 +15,5 @@ public class Table :BaseEntity
     public int SeatQuantity { get; set; } = 0;
     public TableEnum Status { get; set; } = TableEnum.Empty;
 
-    public ICollection<Reservation> Reservations { get; set; }
+    public ICollection<ReservationTableDetail> ReservationTableDetails { get; set; }
 }

@@ -18,9 +18,9 @@ public class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
         builder.Property(x => x.Id).HasDefaultValueSql("NEWID()");
         builder.Property(x => x.CreationDate).HasDefaultValueSql("getutcdate()");
 
-        builder.HasOne(x => x.Table)
-            .WithMany(t => t.Reservations)
-            .HasForeignKey(x => x.TableId);
+        builder.HasMany(x => x.ReservationTableDetails)
+                .WithOne(r => r.Reservation)
+                .HasForeignKey(r => r.ReservationId);
 
         builder.HasOne(x => x.CustomerInfo)
             .WithMany(t => t.Reservations)

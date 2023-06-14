@@ -18,7 +18,7 @@ public class TableConfiguration : IEntityTypeConfiguration<Table>
         builder.Property(x => x.Id).HasDefaultValueSql("NEWID()");
         builder.HasIndex(x => x.Code).IsUnique();
 
-        builder.HasMany(x => x.Reservations)
+        builder.HasMany(x => x.ReservationTableDetails)
                 .WithOne(r => r.Table)
                 .HasForeignKey(r => r.TableId);
     }

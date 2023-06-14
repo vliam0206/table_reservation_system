@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20230613071701_InitMigration")]
+    [Migration("20230614074435_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -120,26 +120,29 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("TableId");
-
                     b.ToTable("Reservation", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.ReservationTime", b =>
+            modelBuilder.Entity("Domain.Entities.ReservationTableDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<Guid>("ReservationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TableId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ReservationTime", (string)null);
+                    b.HasIndex("ReservationId");
+
+                    b.HasIndex("TableId");
+
+                    b.ToTable("ReservationTableDetail", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Table", b =>
@@ -176,13 +179,24 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("CustomerInfo");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ReservationTableDetail", b =>
+                {
+                    b.HasOne("Domain.Entities.Reservation", "Reservation")
+                        .WithMany("ReservationTableDetails")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Table", "Table")
-                        .WithMany("Reservations")
+                        .WithMany("ReservationTableDetails")
                         .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CustomerInfo");
+                    b.Navigation("Reservation");
 
                     b.Navigation("Table");
                 });
@@ -192,9 +206,14 @@ namespace DataAccess.Migrations
                     b.Navigation("Reservations");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Reservation", b =>
+                {
+                    b.Navigation("ReservationTableDetails");
+                });
+
             modelBuilder.Entity("Domain.Entities.Table", b =>
                 {
-                    b.Navigation("Reservations");
+                    b.Navigation("ReservationTableDetails");
                 });
 #pragma warning restore 612, 618
         }

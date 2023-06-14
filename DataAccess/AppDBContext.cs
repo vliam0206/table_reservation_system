@@ -19,7 +19,7 @@ public class AppDBContext : DbContext
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Reservation> Reservations { get; set; }
-    public DbSet<ReservationTime> ReservationTimes { get; set; }
+    public DbSet<ReservationTableDetail> ReservationTableDetails { get; set; }
     public DbSet<Table> Tables { get; set; }
     #endregion
 

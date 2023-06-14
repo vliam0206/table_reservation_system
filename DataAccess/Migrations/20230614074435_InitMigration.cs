@@ -40,18 +40,6 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReservationTime",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
-                    Time = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReservationTime", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Table",
                 columns: table => new
                 {
@@ -87,8 +75,27 @@ namespace DataAccess.Migrations
                         principalTable: "Customer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservationTableDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
+                    TableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReservationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationTableDetail", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservation_Table_TableId",
+                        name: "FK_ReservationTableDetail_Reservation_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReservationTableDetail_Table_TableId",
                         column: x => x.TableId,
                         principalTable: "Table",
                         principalColumn: "Id",
@@ -113,8 +120,13 @@ namespace DataAccess.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservation_TableId",
-                table: "Reservation",
+                name: "IX_ReservationTableDetail_ReservationId",
+                table: "ReservationTableDetail",
+                column: "ReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservationTableDetail_TableId",
+                table: "ReservationTableDetail",
                 column: "TableId");
 
             migrationBuilder.CreateIndex(
@@ -131,16 +143,16 @@ namespace DataAccess.Migrations
                 name: "Account");
 
             migrationBuilder.DropTable(
+                name: "ReservationTableDetail");
+
+            migrationBuilder.DropTable(
                 name: "Reservation");
 
             migrationBuilder.DropTable(
-                name: "ReservationTime");
+                name: "Table");
 
             migrationBuilder.DropTable(
                 name: "Customer");
-
-            migrationBuilder.DropTable(
-                name: "Table");
         }
     }
 }

@@ -22,7 +22,7 @@ public class Reservation : BaseEntity
     #endregion
 
     #region Relationship
-    public Table Table { get; set; } = default!;
+    public ICollection<ReservationTableDetail> ReservationTableDetails { get; set; } = default!;
     public Customer CustomerInfo { get; set; } = default!;
     #endregion
 
