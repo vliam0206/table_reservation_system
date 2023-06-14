@@ -25,4 +25,17 @@ public class ClaimService : IClaimService
                         Guid.Empty : Guid.Parse(userIdClaim);
         }
     }
+
+    public string GetCurrentUserName
+    {
+        get
+        {
+            var userNameClaim = _httpContextAccessor
+                                    .HttpContext?
+                                    .User?
+                                    .FindFirstValue(ClaimTypes.NameIdentifier);
+            return string.IsNullOrEmpty(userNameClaim) ? 
+                            string.Empty : userNameClaim;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 using Application.Commons;
+using Application.IServices;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,15 @@ namespace WebAPI.Controllers
     {        
         private readonly ILogger<TestController> _logger;
         private readonly AppConfiguration _appConfiguration;
+        private readonly IClaimService _claimService;
 
         public TestController(ILogger<TestController> logger,
-            AppConfiguration appConfiguration)
+            AppConfiguration appConfiguration,
+            IClaimService claimService)
         {
             _logger = logger;
             _appConfiguration = appConfiguration;
+            _claimService = claimService;
         }
 
         [HttpGet("db", Name = "GetJsonDB")]
@@ -54,6 +58,11 @@ namespace WebAPI.Controllers
             var date = DateTime.Now;
             var time = date.ToString("HH:mm:ss");
             return time;
+        }
+        [HttpGet("test-claim")]
+        public Guid GetCurrentId()
+        {
+            return _claimService.GetCurrentUserId;
         }
     }
 }
