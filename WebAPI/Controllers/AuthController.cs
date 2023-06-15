@@ -17,17 +17,14 @@ namespace WebAPI.Controllers
     {
         private AppConfiguration _configuration;
         private IUnitOfWork _unitOfWork;
-        private IJwtBlacklistService _jwtBlacklistService;
         private IClaimService _claimService;
 
         public AuthController(IUnitOfWork unitOfWork, 
                                     AppConfiguration configuration,
-                                    IJwtBlacklistService blacklistService,
                                     IClaimService claimService)
         {
             _unitOfWork = unitOfWork;
             _configuration = configuration;
-            _jwtBlacklistService = blacklistService;
             _claimService = claimService;
         }
 

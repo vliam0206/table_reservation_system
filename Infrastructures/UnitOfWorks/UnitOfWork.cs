@@ -1,4 +1,5 @@
-﻿using Infrastructures.IRepositories;
+﻿using DataAccess;
+using Infrastructures.IRepositories;
 using Infrastructures.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,21 @@ namespace Infrastructures.UnitOfWorks;
 public class UnitOfWork : IUnitOfWork
 {
     private IAccountRepository _accountRepository;
+    private ITableRepository _tableRepository;
+    private AppDBContext _dbContext;
 
-    public UnitOfWork(IAccountRepository accountRepository)
+    public UnitOfWork(IAccountRepository accountRepository, ITableRepository tableRepository,
+                        AppDBContext dBContext)
     {
         _accountRepository = accountRepository;
+        _tableRepository = tableRepository;
+        _dbContext = dBContext;
     }
 
     public IAccountRepository AccountRepository => _accountRepository;
+
+    public ITableRepository TableRepository => _tableRepository;
+
+    public async Task SaveChangesAsync()
+        => await _dbContext.SaveChangesAsync();
 }
