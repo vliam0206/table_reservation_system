@@ -3,7 +3,6 @@ using Domain.Entities;
 using Domain.Enums;
 using Infrastructures.UnitOfWorks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
 using WebAPI.Models.TableModels;
@@ -27,18 +26,18 @@ public class TablesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TableViewModel>>> GetTables()
     {
-        var tables = await _unitOfWork.TableRepository.GetTablesAsync();
+        var tables = await _unitOfWork.TableRepository.GetAllAsync();
         return Ok(new ApiResponse
         {
             Success = true,
-            Data = _mapper.Map<IEnumerable<TableViewModel>>(tables)
+            Data = tables//_mapper.Map<IEnumerable<TableViewModel>>(tables)
         });
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<TableViewModel>> GetTable(Guid id)
     {
-        var table = await _unitOfWork.TableRepository.GetTableByIdAsync(id);
+        var table = await _unitOfWork.TableRepository.GetByIdAsync(id);
 
         if (table == null)
         {
@@ -62,7 +61,7 @@ public class TablesController : ControllerBase
         try
         {
             var table = _mapper.Map<Table>(model);
-            _unitOfWork.TableRepository.AddTable(table);
+            _unitOfWork.TableRepository.Add(table);
             await _unitOfWork.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetTable), new { id = table.Id }, new ApiResponse
@@ -83,19 +82,20 @@ public class TablesController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTable(Guid id, TableModel updatedTable)
     {
-        var table = await _unitOfWork.TableRepository.GetTableByIdAsync(id);
-
-        if (table == null)
-        {
-            return NotFound(new ApiResponse
-            {
-                Success = false,
-                ErrorMessage = "Table not found"
-            });
-        }
-
         try
         {
+            var table = await _unitOfWork.TableRepository.GetByIdAsync(id);
+
+            if (table == null)
+            {
+                return NotFound(new ApiResponse
+                {
+                    Success = false,
+                    ErrorMessage = "Table not found"
+                });
+            }
+
+
             table.Code = updatedTable.Code;
             table.SeatQuantity = updatedTable.SeatQuantity;
             table.Status = Enum.Parse<TableEnum>(updatedTable.Status);
@@ -116,19 +116,19 @@ public class TablesController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTable(Guid id)
     {
-        var table = await _unitOfWork.TableRepository.GetTableByIdAsync(id);
-
-        if (table == null)
-        {
-            return NotFound(new ApiResponse
-            {
-                Success = false,
-                ErrorMessage = "Table not found"
-            });
-        }
         try
         {
-            _unitOfWork.TableRepository.RemoveTable(table);
+            var table = await _unitOfWork.TableRepository.GetByIdAsync(id);
+
+            if (table == null)
+            {
+                return NotFound(new ApiResponse
+                {
+                    Success = false,
+                    ErrorMessage = "Table not found"
+                });
+            }
+            _unitOfWork.TableRepository.Remove(table);
             await _unitOfWork.SaveChangesAsync();
 
             return NoContent();
@@ -147,11 +147,12 @@ public class TablesController : ControllerBase
     {
         var tableEnums = (TableEnum[])Enum.GetValues(typeof(TableEnum));
         var statusList = new List<string>();
-        var count = 0;
+        //var count = 0;
 
         foreach (TableEnum tableEnum in tableEnums)
         {
-            statusList.Add($"{tableEnum} = {count++}");
+            //statusList.Add($"{tableEnum}={count++}");
+            statusList.Add($"{tableEnum}");
         }
 
         return Ok(new ApiResponse

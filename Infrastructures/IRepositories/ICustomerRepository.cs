@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Infrastructures.IRepositories;
 
-public interface IAccountRepository : IGenericRepository<Account>
+public interface ICustomerRepository : IGenericRepository<Customer>
 {
-    Account? GetAccount(string username);
 }

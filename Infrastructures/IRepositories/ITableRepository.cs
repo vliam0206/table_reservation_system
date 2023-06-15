@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Infrastructures.IRepositories;
 
-public interface ITableRepository
+public interface ITableRepository : IGenericRepository<Table>
 {
-    Task<IEnumerable<Table>> GetTablesAsync();
-    Task<Table?> GetTableByIdAsync(Guid id);
-    void AddTable(Table table);
-    void RemoveTable(Table table);
+    Task<IEnumerable<Table>> GetTablesWithReservationDetailAsync();
+    Task<Table?> GetTablesWithReservationDetailIdAsync(Guid id);
 }
