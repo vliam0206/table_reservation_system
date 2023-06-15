@@ -47,6 +47,8 @@ public static class ServicesExtensions
     {
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<ITableRepository, TableRepository>();
+        services.AddScoped<IReservationRepository, ReservationRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

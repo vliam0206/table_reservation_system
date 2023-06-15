@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace Infrastructures.Repositories;
 
-public class AccountRepository : IAccountRepository
+public class AccountRepository : GenericRepository<Account>, IAccountRepository
 {
     private readonly AppDBContext _dbContext;
-
-    public AccountRepository(AppDBContext dbContext)
+    public AccountRepository(AppDBContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }

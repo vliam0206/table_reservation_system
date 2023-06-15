@@ -9,33 +9,27 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructures.Repositories;
-public class TableRepository : ITableRepository
+public class TableRepository : GenericRepository<Table>, ITableRepository
 {
     private readonly AppDBContext _dbContext;
 
-    public TableRepository(AppDBContext dbContext)
+    public TableRepository(AppDBContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Table>> GetTablesAsync()
+    public async Task<IEnumerable<Table>> GetTablesWithReservationDetailAsync()
     {
-        return await _dbContext.Tables.ToListAsync();
+        return await _dbContext.Tables
+            .Include(x => x.ReservationTableDetails)
+            .ToListAsync();
     }
 
-    public async Task<Table?> GetTableByIdAsync(Guid id)
+    public async Task<Table?> GetTablesWithReservationDetailIdAsync(Guid id)
     {
-        return await _dbContext.Tables.FirstOrDefaultAsync(t => t.Id == id);
-    }
-
-    public void AddTable(Table table)
-    {
-        _dbContext.Tables.Add(table);
-    }
-
-    public void RemoveTable(Table table)
-    {
-        _dbContext.Tables.Remove(table);
+        return await _dbContext.Tables
+            .Include(x => x.ReservationTableDetails)
+            .FirstOrDefaultAsync(t => t.Id == id);
     }
 }
 
