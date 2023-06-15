@@ -11,4 +11,6 @@ namespace Infrastructures.UnitOfWorks;
 public interface IUnitOfWork
 {
     public IAccountRepository AccountRepository { get; }
+    public ITableRepository TableRepository { get; }
+    Task SaveChangesAsync();
 }

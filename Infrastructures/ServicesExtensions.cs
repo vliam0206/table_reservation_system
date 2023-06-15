@@ -46,6 +46,7 @@ public static class ServicesExtensions
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
         services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<ITableRepository, TableRepository>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
