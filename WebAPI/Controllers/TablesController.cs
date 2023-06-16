@@ -98,7 +98,6 @@ public class TablesController : ControllerBase
 
             table.Code = updatedTable.Code;
             table.SeatQuantity = updatedTable.SeatQuantity;
-            table.Status = Enum.Parse<TableEnum>(updatedTable.Status);
 
             await _unitOfWork.SaveChangesAsync();
 

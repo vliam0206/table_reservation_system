@@ -14,5 +14,6 @@ public interface IUnitOfWork
     public ITableRepository TableRepository { get; }
     public IReservationRepository ReservationRepository { get; }
     public ICustomerRepository CustomerRepository { get; }
+    public IReservationTableRepository ReservationTableRepository { get; }
     Task SaveChangesAsync();
 }

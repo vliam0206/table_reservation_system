@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
+using WebAPI.Models;
 using WebAPI.Models.ReservationModels;
 using WebAPI.Models.TableModels;
 
@@ -10,15 +11,18 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Table, TableModel>()
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
-        CreateMap<TableModel, Table>()
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<TableEnum>(src.Status)));
+        //CreateMap<Table, TableModel>()
+        //    .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+        //CreateMap<TableModel, Table>()
+        //    .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<TableEnum>(src.Status)));
 
-        CreateMap<Table, TableViewModel>()
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
-        CreateMap<TableViewModel, Table>()
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<TableEnum>(src.Status)));
+        //CreateMap<Table, TableViewModel>()
+        //    .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+        //CreateMap<TableViewModel, Table>()
+        //    .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<TableEnum>(src.Status)));
+
+        CreateMap<Table, TableModel>().ReverseMap();
+        CreateMap<Table, TableViewModel>().ReverseMap();
 
         CreateMap<Reservation, ReservationModel>()
             .ForMember(dest => dest.CustomerFullName, opt => opt.MapFrom(src => src.CustomerInfo.FullName))
@@ -30,5 +34,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.CustomerEmail, opt => opt.MapFrom(src => src.CustomerInfo.Email))
             .ForMember(dest => dest.CustomerPhoneNumber, opt => opt.MapFrom(src => src.CustomerInfo.PhoneNumber))
             .ReverseMap();
+
+        CreateMap<ReservationTableDetail, TableReservationDetailViewModel>().ReverseMap();
     }
 }

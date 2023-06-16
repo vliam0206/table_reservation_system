@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Infrastructures.UnitOfWorks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
 using WebAPI.Models.ReservationModels;
+using WebAPI.Models.TableModels;
 
 namespace WebAPI.Controllers;
 
@@ -21,7 +23,14 @@ public class ReservationsController : ControllerBase
         _mapper = mapper;
     }
 
+    //[HttpGet]
+    //public async Task<IActionResult<IEnumerable<TableViewModel>>> GetSuitableTables()
+    //{
+
+    //}
+
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<ReservationViewModel>>> GetReservations()
     {
         var reservations = await _unitOfWork.ReservationRepository.GetReservationWithCustomer();
@@ -35,6 +44,7 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<ReservationViewModel>> GetReservation(Guid id)
     {
         var reservation = await _unitOfWork.ReservationRepository.GetReservationWithCustomer(id);
@@ -93,6 +103,7 @@ public class ReservationsController : ControllerBase
 
 
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<IActionResult> UpdateReservation(Guid id, ReservationModel reservationUpdateDto)
     {
         try
@@ -126,6 +137,7 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteReservation(Guid id)
     {
         try
