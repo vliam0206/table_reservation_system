@@ -10,5 +10,5 @@ namespace Infrastructures.IRepositories;
 public interface IReservationRepository : IGenericRepository<Reservation>
 {
     Task<IEnumerable<Reservation?>> GetReservationWithCustomer();
-    Task<IEnumerable<Reservation?>> GetReservationWithCustomer(Guid id);
+    Task<Reservation?> GetReservationWithCustomer(Guid id);
 }

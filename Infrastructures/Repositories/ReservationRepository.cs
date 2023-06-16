@@ -18,11 +18,11 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Reservation?>> GetReservationWithCustomer(Guid id)
+    public async Task<Reservation?> GetReservationWithCustomer(Guid id)
     {
         return await _dbContext.Reservations
             .Include(r => r.CustomerInfo)
-            .Where(r => r.Id == id).ToListAsync();
+            .FirstOrDefaultAsync(r => r.Id == id);
     }
 
     public async Task<IEnumerable<Reservation?>> GetReservationWithCustomer()

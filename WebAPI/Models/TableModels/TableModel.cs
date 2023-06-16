@@ -8,5 +8,4 @@ public class TableModel
     [MaxLength(50)]
     public string Code { get; set; } = null!;
     public int SeatQuantity { get; set; } = 0;
-    public string Status { get; set; } = "Empty";
 }
