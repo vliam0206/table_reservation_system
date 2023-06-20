@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "7be7e90d-f9f8-4fef-9562-7cb5b0f73787",
+		"name": "ReservationTableDetails",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26236610"
+	},
+	"item": [
+		{
+			"name": "Get All Details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/api/TableReservationDetails",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"TableReservationDetails"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
