@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "e66284dd-545a-41f9-8f78-89aa0d258fcf",
+		"name": "Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26236610"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Log In Test\", function(){\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.globals.set(\"TOKEN\", jsonData.data);\r",
+							"\r",
+							"    // Assert that the access token is removed\r",
+							"    pm.expect(pm.globals.has(\"TOKEN\")).to.be.true;\r",
+							"\r",
+							"    // Validate the response status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"lamlam\",\r\n  \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/api/Auth/login",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"Auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/api/Auth/current-id",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"Auth",
+						"current-id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current Username",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/api/Auth/current-username",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"Auth",
+						"current-username"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

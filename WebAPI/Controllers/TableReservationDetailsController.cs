@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models.TableModels;
 using WebAPI.Models;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers;
 
@@ -22,6 +23,7 @@ public class TableReservationDetailsController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAllTableReservationDetails()
     {
         try
@@ -40,6 +42,7 @@ public class TableReservationDetailsController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<IActionResult> GetTableReservationDetail(Guid id)
     {
         try
@@ -80,6 +83,7 @@ public class TableReservationDetailsController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<IActionResult> UpdateTableReservationDetail(Guid id, ReservationTableDetail updatedTableReservationDetail)
     {
         try
@@ -103,6 +107,7 @@ public class TableReservationDetailsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteTableReservationDetail(Guid id)
     {
         try

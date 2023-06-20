@@ -79,16 +79,16 @@ namespace WebAPI.Controllers
             return Ok(response);
         }
 
-        [HttpPost("logout")]
-        [Authorize]
-        public IActionResult Logout()
-        {
-            return Ok(new ApiResponse()
-            {
-                Success = false,
-                ErrorMessage = "This Log Out api is just used to log out in Postman. Log out must be implemented in client-side."
-            });
-        }
+        //[HttpPost("logout")]
+        //[Authorize]
+        //public IActionResult Logout()
+        //{
+        //    return Ok(new ApiResponse()
+        //    {
+        //        Success = false,
+        //        ErrorMessage = "This Log Out api is just used to log out in Postman. Log out must be implemented in client-side."
+        //    });
+        //}
 
         //[HttpPost("logout")]
         //[Authorize]
