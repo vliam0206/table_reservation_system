@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,4 +16,5 @@ public class Account : BaseEntity
     public string Password { get; set; } = null!;
     [MaxLength(100)]
     public string FullName { get; set; } = null!;
+    public RoleEnum Role { get; set; } = RoleEnum.Staff;
 }
