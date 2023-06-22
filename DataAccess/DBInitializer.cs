@@ -20,7 +20,10 @@ public class DBInitializer
         }
         var accounts = new Account[]
         {
-            new Account() {UserName="lamlam", Password="123".Hash(), FullName="Lam Vo"}
+            new Account() {UserName="manager", Password="123".Hash(), FullName="Quản lý cấp cao", Role = RoleEnum.Manager},
+            new Account() {UserName="lam", Password="123".Hash(), FullName="Lam tiếp tân"},
+            new Account() {UserName="thong", Password="123".Hash(), FullName="Thông bồi bàn"},
+            new Account() {UserName="hoanganh", Password="123".Hash(), FullName="Hoàng Anh tạp vụ"},
         };
         context.Accounts.AddRange(accounts);
         context.SaveChanges();
