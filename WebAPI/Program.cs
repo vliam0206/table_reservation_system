@@ -73,7 +73,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 // Initialize data for DB
 SeedDatabase();
-
+app.UseCors();
 //use authentication to use jwt
 app.UseAuthentication();
 app.UseAuthorization();
