@@ -14,8 +14,7 @@ public class Table :BaseEntity
     [MaxLength(50)]
     public string Code { get; set; } = null!;
     public int SeatQuantity { get; set; } = 0;
-    [NotMapped]
-    public TableEnum Status { get; set; } = TableEnum.Empty;    
+    public TableEnum Status { get; set; } = TableEnum.Active;    
 
     public ICollection<ReservationTableDetail> ReservationTableDetails { get; set; }
 }

@@ -21,7 +21,7 @@ public class ReservationTableRepository : GenericRepository<ReservationTableDeta
     public async Task<IEnumerable<ReservationTableDetail?>> GetTableReservationDetailAsync()
     {
         return await _dbContext.ReservationTableDetails
-            .Include(x => x.Reservation)            
+            .Include(x => x.Reservation).ThenInclude(r => r.CustomerInfo)         
             .Include(x => x.Table)            
             .ToListAsync();
     }

@@ -11,4 +11,5 @@ public interface ITableRepository : IGenericRepository<Table>
 {
     Task<IEnumerable<Table>> GetTablesWithReservationDetailAsync();
     Task<Table?> GetTablesWithReservationDetailIdAsync(Guid id);
+    Task<IEnumerable<Table>> FindSuitableTablesAsync(DateTime dateTimeBooking);
 }

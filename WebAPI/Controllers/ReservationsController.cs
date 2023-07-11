@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructures.UnitOfWorks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,17 +24,12 @@ public class ReservationsController : ControllerBase
         _mapper = mapper;
     }
 
-    //[HttpGet]
-    //public async Task<IActionResult<IEnumerable<TableViewModel>>> GetSuitableTables()
-    //{
-
-    //}
-
     [HttpGet]
     [Authorize]
     public async Task<ActionResult<IEnumerable<ReservationViewModel>>> GetReservations()
     {
-        var reservations = await _unitOfWork.ReservationRepository.GetReservationWithCustomer();
+        var reservations = (await _unitOfWork.ReservationRepository.GetReservationWithCustomer())
+                                .OrderBy(x => x.CreationDate);
         var reservationDtos = _mapper.Map<IEnumerable<ReservationViewModel>>(reservations);
 
         return Ok(new ApiResponse()
@@ -43,6 +39,21 @@ public class ReservationsController : ControllerBase
         });
     }
 
+    [HttpGet("status/{status}")]
+    [Authorize]
+    public async Task<ActionResult<IEnumerable<ReservationViewModel>>> GetReservationsByStatus(string status)
+    {
+        var reservations = (await _unitOfWork.ReservationRepository.GetReservationWithCustomer())
+                                .Where(x => x.Status.ToString().Equals(status))
+                                .OrderBy(x => x.CreationDate);
+        var reservationDtos = _mapper.Map<IEnumerable<ReservationViewModel>>(reservations);
+
+        return Ok(new ApiResponse()
+        {
+            Success = true,
+            Data = reservationDtos
+        });
+    }
     [HttpGet("{id}")]
     [Authorize]
     public async Task<ActionResult<ReservationViewModel>> GetReservation(Guid id)
@@ -79,7 +90,7 @@ public class ReservationsController : ControllerBase
             };
 
             var reservation = _mapper.Map<Reservation>(reservationCreateDto);
-            reservation.CustomerInfo = customer;
+            reservation.CustomerId = customer.Id;
 
             _unitOfWork.CustomerRepository.Add(customer);
             _unitOfWork.ReservationRepository.Add(reservation);
@@ -104,7 +115,7 @@ public class ReservationsController : ControllerBase
 
     [HttpPut("{id}")]
     [Authorize]
-    public async Task<IActionResult> UpdateReservation(Guid id, ReservationModel reservationUpdateDto)
+    public async Task<IActionResult> UpdateReservation(Guid id, ReservationUpdateModel reservationUpdateDto)
     {
         try
         {
@@ -117,12 +128,23 @@ public class ReservationsController : ControllerBase
                     ErrorMessage = "Reservation not found"
                 });
             }
+            var customer = await _unitOfWork.CustomerRepository.GetByIdAsync(reservation.CustomerId);
+            //reservation =  _mapper.Map<ReservationModel, Reservation>(reservationUpdateDto);
 
-            _mapper.Map(reservationUpdateDto, reservation);
+            // update reservation
+            reservation.DateTimeBooking = reservationUpdateDto.DateTimeBooking;
+            reservation.CustomerQuantity = reservationUpdateDto.CustomerQuantity;
+            reservation.Note = reservationUpdateDto.Note;
+            reservation.Status = Enum.Parse<ReservationEnum>(reservationUpdateDto.Status);
 
-            //// Set the CustomerId based on the provided Customer's ID
-            //reservation.CustomerId = reservationUpdateDto.CustomerId;
+            // Update customer
+            customer.FullName = reservationUpdateDto.CustomerFullName;
+            customer.PhoneNumber = reservationUpdateDto.CustomerPhoneNumber;
+            customer.Email = reservationUpdateDto.CustomerEmail;
 
+            _unitOfWork.ReservationRepository.Update(reservation);
+            _unitOfWork.CustomerRepository.Update(customer);
+            
             await _unitOfWork.SaveChangesAsync();
 
             return NoContent();
@@ -164,6 +186,13 @@ public class ReservationsController : ControllerBase
                 ErrorMessage = ex.Message
             });
         }
+    }
+
+    [HttpGet("status-list")]
+    public async Task<IActionResult> GetAllReservationStatus()
+    {
+        var statusList = Enum.GetNames(typeof(ReservationEnum)).ToList();
+        return Ok(statusList);
     }
 }
 

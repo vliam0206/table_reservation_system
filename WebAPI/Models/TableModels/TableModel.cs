@@ -9,3 +9,8 @@ public class TableModel
     public string Code { get; set; } = null!;
     public int SeatQuantity { get; set; } = 0;
 }
+
+public class TableUpdateModel : TableModel
+{
+    public string Status { get;set; }
+}

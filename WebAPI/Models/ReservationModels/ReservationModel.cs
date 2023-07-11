@@ -13,3 +13,7 @@ public class ReservationModel
     public string CustomerEmail { get; set; } = default!;
     public string CustomerPhoneNumber { get; set; } = default!;
 }
+public class ReservationUpdateModel : ReservationModel
+{
+    public string Status { get; set; }
+}

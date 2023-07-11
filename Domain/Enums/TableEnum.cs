@@ -8,7 +8,7 @@ namespace Domain.Enums;
 
 public enum TableEnum
 {
-    Empty,
-    Booking,
-    Booked
+    Active,
+    Booking,  // for guests to reserve seats while filling in information
+    Inactive
 }
