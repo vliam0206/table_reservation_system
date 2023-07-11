@@ -5,6 +5,7 @@ using Infrastructures;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using WebAPI;
 using WebAPI.Services;
 
@@ -26,7 +27,10 @@ builder.Services.AddWebApiServices();
 
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opt =>
+{
+    opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+}); ;
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>

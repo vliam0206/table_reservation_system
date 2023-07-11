@@ -11,7 +11,6 @@ namespace WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
 public class TablesController : ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -24,17 +23,20 @@ public class TablesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TableViewModel>>> GetTables()
+    [Authorize]
+    public async Task<ActionResult> GetTables()
     {
-        var tables = await _unitOfWork.TableRepository.GetAllAsync();
+        var tables = (await _unitOfWork.TableRepository.GetAllAsync())
+                        .OrderBy(x => x.Code);        
         return Ok(new ApiResponse
         {
             Success = true,
-            Data = tables//_mapper.Map<IEnumerable<TableViewModel>>(tables)
+            Data = _mapper.Map<IEnumerable<TableViewModel>>(tables)
         });
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<TableViewModel>> GetTable(Guid id)
     {
         var table = await _unitOfWork.TableRepository.GetByIdAsync(id);
@@ -56,6 +58,7 @@ public class TablesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Table>> CreateTable(TableModel model)
     {
         try
@@ -80,7 +83,8 @@ public class TablesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateTable(Guid id, TableModel updatedTable)
+    [Authorize]
+    public async Task<IActionResult> UpdateTable(Guid id, TableUpdateModel updatedTable)
     {
         try
         {
@@ -98,7 +102,9 @@ public class TablesController : ControllerBase
 
             table.Code = updatedTable.Code;
             table.SeatQuantity = updatedTable.SeatQuantity;
+            table.Status = Enum.Parse<TableEnum>(updatedTable.Status);
 
+            _unitOfWork.TableRepository.Update(table);
             await _unitOfWork.SaveChangesAsync();
 
             return NoContent();
@@ -113,6 +119,7 @@ public class TablesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteTable(Guid id)
     {
         try
@@ -142,22 +149,117 @@ public class TablesController : ControllerBase
     }
 
     [HttpGet("status-list")]
-    public async Task<ActionResult<IEnumerable<string>>> GetTablesStatus()
+    public ActionResult GetTablesStatus()
     {
-        var tableEnums = (TableEnum[])Enum.GetValues(typeof(TableEnum));
-        var statusList = new List<string>();
-        //var count = 0;
-
-        foreach (TableEnum tableEnum in tableEnums)
-        {
-            //statusList.Add($"{tableEnum}={count++}");
-            statusList.Add($"{tableEnum}");
-        }
-
-        return Ok(new ApiResponse
-        {
-            Success = true,
-            Data = statusList
-        });
+        var statusList = Enum.GetNames(typeof(TableEnum)).ToList();
+        return Ok(statusList);
     }
+
+    [HttpPost("find")]    
+    public async Task<ActionResult> FindTables(FindTableModel model)
+    {
+        try
+        {
+            List<TableViewModel> result = new List<TableViewModel>();
+            var tableList = await _unitOfWork.TableRepository.FindSuitableTablesAsync(model.dateTimeBooking);
+            var suitableTables = tableList.Where(x => x.SeatQuantity >= model.quantitySeats);
+            if (suitableTables.Any())
+            {
+                var table = suitableTables.ToArray()[0];
+                result.Add(_mapper.Map<TableViewModel>(table));
+            }
+            else
+            {
+                var tables = suitableTables.Reverse().ToArray();
+                var totalSeats = 0;
+                var index = 0;
+                List<TableViewModel> tmp = new List<TableViewModel>();
+                while (totalSeats < model.quantitySeats && index < tables.Length)
+                {
+                    totalSeats += tables[index].SeatQuantity;
+                    tmp.Add(_mapper.Map<TableViewModel>(tables[index]));
+                    index++;
+                }
+                if (totalSeats >= model.quantitySeats)
+                {
+                    result = tmp;
+                }
+            }
+            return Ok(new ApiResponse
+            {
+                Success = true,
+                Data = result
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponse()
+            {
+                Success = false,
+                ErrorMessage = ex.Message
+            });
+        }
+    }
+    [HttpPut("lock-table")]
+    public async Task<IActionResult> LockTables([FromBody] List<Guid> tablesId)
+    {
+        try
+        {
+            foreach (var id in tablesId)
+            {
+                var table = await _unitOfWork.TableRepository.GetByIdAsync(id);
+                if (table == null)
+                {
+                    return NotFound(new ApiResponse
+                    {
+                        Success = false,
+                        ErrorMessage = $"Table with Id {id} not found."
+                    });
+                }
+                table.Status = TableEnum.Booking;
+                _unitOfWork.TableRepository.Update(table);
+            }
+            await _unitOfWork.SaveChangesAsync();
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponse()
+            {
+                Success = false,
+                ErrorMessage = ex.Message
+            });
+        }
+    }
+    [HttpPut("unlock-table")]
+    public async Task<IActionResult> UnLockTables([FromBody] List<Guid> tablesId)
+    {
+        try
+        {
+            foreach (var id in tablesId)
+            {
+                var table = await _unitOfWork.TableRepository.GetByIdAsync(id);
+                if (table == null)
+                {
+                    return NotFound(new ApiResponse
+                    {
+                        Success = false,
+                        ErrorMessage = $"Table with Id {id} not found."
+                    });
+                }
+                table.Status = TableEnum.Active;
+                _unitOfWork.TableRepository.Update(table);
+            }
+            await _unitOfWork.SaveChangesAsync();
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponse()
+            {
+                Success = false,
+                ErrorMessage = ex.Message
+            });
+        }
+    }    
 }

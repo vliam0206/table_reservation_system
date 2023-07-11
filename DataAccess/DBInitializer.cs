@@ -12,6 +12,15 @@ namespace DataAccess;
 public class DBInitializer
 {
     private static AppDBContext context;
+    public static void InitializeData(AppDBContext _context)
+    {
+        context = _context;
+        InitializeAccount();
+        InitializeCustomer();
+        InitializeTable();
+        InitializeReservation();
+        InitializeReservationTableDetail();
+    }
     public static void InitializeAccount()
     {
         if (context.Accounts.Any())
@@ -21,7 +30,7 @@ public class DBInitializer
         var accounts = new Account[]
         {
             new Account() {UserName="manager", Password="123".Hash(), FullName="Quản lý cấp cao", Role = RoleEnum.Manager},
-            new Account() {UserName="lam", Password="123".Hash(), FullName="Lam tiếp tân"},
+            new Account() {UserName="lamlam", Password="123".Hash(), FullName="Lam tiếp tân"},
             new Account() {UserName="thong", Password="123".Hash(), FullName="Thông bồi bàn"},
             new Account() {UserName="hoanganh", Password="123".Hash(), FullName="Hoàng Anh tạp vụ"},
         };
@@ -37,9 +46,9 @@ public class DBInitializer
 
         var customers = new Customer[]
         {
+            new Customer { FullName = "Lam Vo", Email = "v.trclam@gmail.com", PhoneNumber = "0876543210" },
             new Customer { FullName = "John Doe", Email = "john@example.com", PhoneNumber = "1234567890" },
-            new Customer { FullName = "Jane Smith", Email = "jane@example.com", PhoneNumber = "9876543210" },
-            new Customer { FullName = "Lam Vo", Email = "v.trclam@gmail.com", PhoneNumber = "0876543210" }
+            new Customer { FullName = "Jane Smith", Email = "jane@example.com", PhoneNumber = "9876543210" }            
         };
 
         context.Customers.AddRange(customers);
@@ -111,21 +120,10 @@ public class DBInitializer
         var reservationTableDetails = new ReservationTableDetail[]
         {
             new ReservationTableDetail { ReservationId = reservations[0].Id, TableId = tables[0].Id },
-            new ReservationTableDetail { ReservationId = reservations[0].Id, TableId = tables[1].Id },
             new ReservationTableDetail { ReservationId = reservations[1].Id, TableId = tables[1].Id }
         };
 
         context.ReservationTableDetails.AddRange(reservationTableDetails);
         context.SaveChanges();
-    }
-
-    public static void InitializeData(AppDBContext _context)
-    {
-        context = _context;
-        InitializeAccount();
-        InitializeCustomer();
-        InitializeTable();
-        InitializeReservation();
-        InitializeReservationTableDetail();
-    }
+    }    
 }
