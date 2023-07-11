@@ -50,14 +50,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}/api/Reservations/f2e70113-ad70-4b72-b102-2efd75e4ac94",
+					"raw": "{{HOST}}/api/Reservations/a2fb38b2-8a12-4f75-8b01-2523b8268010",
 					"host": [
 						"{{HOST}}"
 					],
 					"path": [
 						"api",
 						"Reservations",
-						"f2e70113-ad70-4b72-b102-2efd75e4ac94"
+						"a2fb38b2-8a12-4f75-8b01-2523b8268010"
 					]
 				}
 			},
@@ -182,6 +182,20 @@
 						"reservations",
 						"status",
 						"Waiting"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update status",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}",
+					"host": [
+						"{{HOST}}"
 					]
 				}
 			},
