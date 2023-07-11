@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "c6a8aded-0d90-4af9-9871-cf9206d4692c",
+		"name": "System Data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26236610"
+	},
+	"item": [
+		{
+			"name": "Get Restaurant's Time List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/api/test/time-list",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"time-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Reservation Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/api/Reservations/status-list",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"Reservations",
+						"status-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Table Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}
