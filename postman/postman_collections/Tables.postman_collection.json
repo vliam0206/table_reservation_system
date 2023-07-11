@@ -80,7 +80,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"code\": \"T3\",\r\n  \"seatQuantity\": 5\r\n}",
+					"raw": "{\r\n  \"code\": \"string\",\r\n  \"seatQuantity\": 0,\r\n  \"status\": \"Active\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,14 +88,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}/api/Tables/7587c00e-77a2-4dbf-8bf6-b8a299746c48",
+					"raw": "{{HOST}}/api/Tables/190aaa70-6564-49d0-8436-349e9971faa3",
 					"host": [
 						"{{HOST}}"
 					],
 					"path": [
 						"api",
 						"Tables",
-						"7587c00e-77a2-4dbf-8bf6-b8a299746c48"
+						"190aaa70-6564-49d0-8436-349e9971faa3"
 					]
 				}
 			},
@@ -162,6 +162,90 @@
 					"path": [
 						"api",
 						"Tables"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Suitable Tables",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateTimeBooking\": \"2023-07-11T19:00:00\",\r\n  \"quantitySeats\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/api/Tables/find",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"Tables",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lock Tables",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/api/Tables/lock-table",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"Tables",
+						"lock-table"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unlock Tables",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/api/Tables/unlock-table",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"Tables",
+						"unlock-table"
 					]
 				}
 			},

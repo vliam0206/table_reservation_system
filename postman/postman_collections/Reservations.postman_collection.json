@@ -50,14 +50,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}/api/Reservations/b783e561-a61c-41d3-b092-55c47452734a",
+					"raw": "{{HOST}}/api/Reservations/f2e70113-ad70-4b72-b102-2efd75e4ac94",
 					"host": [
 						"{{HOST}}"
 					],
 					"path": [
 						"api",
 						"Reservations",
-						"b783e561-a61c-41d3-b092-55c47452734a"
+						"f2e70113-ad70-4b72-b102-2efd75e4ac94"
 					]
 				}
 			},
@@ -91,6 +91,44 @@
 			"response": []
 		},
 		{
+			"name": "UpdateReservationStatus",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateTimeBooking\": \"2023-07-11T16:53:00.309Z\",\r\n  \"customerQuantity\": 0,\r\n  \"note\": \"string\",\r\n  \"customerFullName\": \"string\",\r\n  \"customerEmail\": \"string\",\r\n  \"customerPhoneNumber\": \"string\",\r\n  \"status\": \"Waiting\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/api/Reservations/6f1eb32b-b1ca-462a-93d0-b295f880e44c",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"Reservations",
+						"6f1eb32b-b1ca-462a-93d0-b295f880e44c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete Reservation",
 			"request": {
 				"auth": {
@@ -106,14 +144,44 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{HOST}}/api/Reservations/58e9cd6f-df0f-41c8-9be0-432f51464275",
+					"raw": "{{HOST}}/api/Reservations/ccffda89-2ead-4aa2-9f1b-9a3672553ead",
 					"host": [
 						"{{HOST}}"
 					],
 					"path": [
 						"api",
 						"Reservations",
-						"58e9cd6f-df0f-41c8-9be0-432f51464275"
+						"ccffda89-2ead-4aa2-9f1b-9a3672553ead"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter by Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/api/reservations/status/Waiting",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"reservations",
+						"status",
+						"Waiting"
 					]
 				}
 			},
