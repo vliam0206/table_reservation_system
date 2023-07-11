@@ -194,5 +194,39 @@ public class ReservationsController : ControllerBase
         var statusList = Enum.GetNames(typeof(ReservationEnum)).ToList();
         return Ok(statusList);
     }
+
+    [HttpPut("update-status/{id}")]
+    [Authorize]
+    public async Task<IActionResult> UpdateReservationStatus(Guid id, TableStatus model)
+    {
+        try
+        {
+            var reservation = await _unitOfWork.ReservationRepository.GetByIdAsync(id);
+            if (reservation == null)
+            {
+                return NotFound(new ApiResponse
+                {
+                    Success = false,
+                    ErrorMessage = "Reservation not found"
+                });
+            }
+            
+            reservation.Status = Enum.Parse<ReservationEnum>(model.Status);
+
+            _unitOfWork.ReservationRepository.Update(reservation);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponse()
+            {
+                Success = false,
+                ErrorMessage = ex.Message
+            });
+        }
+    }
 }
 

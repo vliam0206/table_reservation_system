@@ -14,3 +14,8 @@ public class TableUpdateModel : TableModel
 {
     public string Status { get;set; }
 }
+
+public class TableStatus
+{
+    public string Status { get; set; }
+}
