@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "e66284dd-545a-41f9-8f78-89aa0d258fcf",
 		"name": "Auth",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "26236610"
 	},
 	"item": [
@@ -31,13 +31,9 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "POST",
 				"header": [],
@@ -50,17 +46,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{HOST}}/api/Auth/login",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Auth",
-						"login"
-					]
-				}
+				"url": "{{HOST}}/api/Auth/login"
 			},
 			"response": []
 		},
@@ -69,27 +55,13 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}/api/Auth/current-id",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Auth",
-						"current-id"
-					]
-				}
+				"url": "{{HOST}}/api/Auth/current-id"
 			},
 			"response": []
 		},
@@ -98,27 +70,13 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}/api/Auth/current-username",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Auth",
-						"current-username"
-					]
-				}
+				"url": "{{HOST}}/api/Auth/current-username"
 			},
 			"response": []
 		}

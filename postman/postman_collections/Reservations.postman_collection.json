@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "147fa348-a317-41ab-ac55-38c318e4a4c9",
 		"name": "Reservations",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "26236610"
 	},
 	"item": [
@@ -11,26 +11,13 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}/api/Reservations",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Reservations"
-					]
-				}
+				"url": "{{HOST}}/api/Reservations"
 			},
 			"response": []
 		},
@@ -39,27 +26,13 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}/api/Reservations/a2fb38b2-8a12-4f75-8b01-2523b8268010",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Reservations",
-						"a2fb38b2-8a12-4f75-8b01-2523b8268010"
-					]
-				}
+				"url": "{{HOST}}/api/Reservations/a2fb38b2-8a12-4f75-8b01-2523b8268010"
 			},
 			"response": []
 		},
@@ -77,16 +50,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{HOST}}/api/Reservations",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Reservations"
-					]
-				}
+				"url": "{{HOST}}/api/Reservations"
 			},
 			"response": []
 		},
@@ -95,13 +59,9 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "PUT",
 				"header": [],
@@ -114,17 +74,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{HOST}}/api/Reservations/6f1eb32b-b1ca-462a-93d0-b295f880e44c",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Reservations",
-						"6f1eb32b-b1ca-462a-93d0-b295f880e44c"
-					]
-				}
+				"url": "{{HOST}}/api/Reservations/6f1eb32b-b1ca-462a-93d0-b295f880e44c"
 			},
 			"response": []
 		},
@@ -133,27 +83,13 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}/api/Reservations/ccffda89-2ead-4aa2-9f1b-9a3672553ead",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Reservations",
-						"ccffda89-2ead-4aa2-9f1b-9a3672553ead"
-					]
-				}
+				"url": "{{HOST}}/api/Reservations/ccffda89-2ead-4aa2-9f1b-9a3672553ead"
 			},
 			"response": []
 		},
@@ -162,42 +98,37 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}/api/reservations/status/Waiting",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"reservations",
-						"status",
-						"Waiting"
-					]
-				}
+				"url": "{{HOST}}/api/reservations/status/Waiting"
 			},
 			"response": []
 		},
 		{
 			"name": "Update status",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
 				"method": "PUT",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}",
-					"host": [
-						"{{HOST}}"
-					]
-				}
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"Confirmed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{HOST}}/api/Reservations/update-status/a2fb38b2-8a12-4f75-8b01-2523b8268010"
 			},
 			"response": []
 		}
