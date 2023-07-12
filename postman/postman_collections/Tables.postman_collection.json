@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "6b44de38-9a98-421f-952a-984e9d541454",
 		"name": "Tables",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "26236610"
 	},
 	"item": [
@@ -11,26 +11,13 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}/api/Tables",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Tables"
-					]
-				}
+				"url": "{{HOST}}/api/Tables"
 			},
 			"response": []
 		},
@@ -39,27 +26,13 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}/api/Tables/101f23e5-c3c1-4a8b-866b-2ac3a5ec19d8",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Tables",
-						"101f23e5-c3c1-4a8b-866b-2ac3a5ec19d8"
-					]
-				}
+				"url": "{{HOST}}/api/Tables/6b4443c2-c2e2-4f47-87e0-f5dc6ddea4e8"
 			},
 			"response": []
 		},
@@ -68,13 +41,9 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "PUT",
 				"header": [],
@@ -87,17 +56,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{HOST}}/api/Tables/190aaa70-6564-49d0-8436-349e9971faa3",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Tables",
-						"190aaa70-6564-49d0-8436-349e9971faa3"
-					]
-				}
+				"url": "{{HOST}}/api/Tables/190aaa70-6564-49d0-8436-349e9971faa3"
 			},
 			"response": []
 		},
@@ -106,27 +65,13 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "{{HOST}}/api/Tables/50761b4c-1883-4790-b291-21bf2d56b85c",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Tables",
-						"50761b4c-1883-4790-b291-21bf2d56b85c"
-					]
-				}
+				"url": "{{HOST}}/api/Tables/50761b4c-1883-4790-b291-21bf2d56b85c"
 			},
 			"response": []
 		},
@@ -135,13 +80,9 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
 				},
 				"method": "POST",
 				"header": [],
@@ -154,16 +95,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{HOST}}/api/Tables",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Tables"
-					]
-				}
+				"url": "{{HOST}}/api/Tables"
 			},
 			"response": []
 		},
@@ -181,17 +113,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{HOST}}/api/Tables/find",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Tables",
-						"find"
-					]
-				}
+				"url": "{{HOST}}/api/Tables/find"
 			},
 			"response": []
 		},
@@ -209,17 +131,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{HOST}}/api/Tables/lock-table",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Tables",
-						"lock-table"
-					]
-				}
+				"url": "{{HOST}}/api/Tables/lock-table"
 			},
 			"response": []
 		},
@@ -237,17 +149,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{HOST}}/api/Tables/unlock-table",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"api",
-						"Tables",
-						"unlock-table"
-					]
-				}
+				"url": "{{HOST}}/api/Tables/unlock-table"
 			},
 			"response": []
 		}
