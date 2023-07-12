@@ -22,6 +22,31 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
     {
         return await _dbContext.Reservations
             .Include(r => r.CustomerInfo)
+            .Include(r => r.ReservationTableDetails)
+            .ThenInclude(d => d.Table)
+            .Include(r => r.CustomerInfo)
+            .Select(r => new Reservation
+            {
+                Id = r.Id,
+                CreationDate = r.CreationDate,
+                ReservationTableDetails = r.ReservationTableDetails.Select(d => new ReservationTableDetail
+                {
+                    TableId = d.TableId,
+                    ReservationId = d.ReservationId,
+                    Table = d.Table,
+                    Id = d.Id
+                }).ToList(),
+                DateTimeBooking = r.DateTimeBooking,
+                CustomerQuantity = r.CustomerQuantity,
+                Note = r.Note,
+                CustomerInfo = new Customer
+                {
+                    FullName = r.CustomerInfo.FullName,
+                    Email = r.CustomerInfo.Email,
+                    PhoneNumber = r.CustomerInfo.PhoneNumber
+                },
+                Status = r.Status
+            })
             .FirstOrDefaultAsync(r => r.Id == id);
     }
 
@@ -50,7 +75,8 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
                     FullName = r.CustomerInfo.FullName,
                     Email = r.CustomerInfo.Email,
                     PhoneNumber = r.CustomerInfo.PhoneNumber
-                }
+                },
+                Status = r.Status
             }).ToListAsync();
     }
 }
