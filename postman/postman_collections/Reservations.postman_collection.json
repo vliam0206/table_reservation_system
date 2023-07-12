@@ -43,7 +43,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"dateTimeBooking\": \"2023-06-25T09:00:00\",\r\n  \"customerQuantity\": 15,\r\n  \"note\": \"Near door\",\r\n  \"customerFullName\": \"Alien\",\r\n  \"customerEmail\": \"alien@example.com\",\r\n  \"customerPhoneNumber\": \"0928172812\"\r\n}",
+					"raw": "{\r\n  \"dateTimeBooking\": \"2023-07-15T19:00:00\",\r\n  \"customerQuantity\": 10,\r\n  \"note\": \"Near door\",\r\n  \"customerFullName\": \"Lam\",\r\n  \"customerEmail\": \"lam@example.com\",\r\n  \"customerPhoneNumber\": \"0928172812\",\r\n  \"tablesId\": [\r\n    \"b8567771-01c2-4267-8293-40ad252f35c6\",\r\n    \"6b4443c2-c2e2-4f47-87e0-f5dc6ddea4e8\"\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

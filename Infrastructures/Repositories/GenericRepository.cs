@@ -58,5 +58,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task AddRangeAsync(List<T> entities)
+    {
+        await _dbContext.Set<T>().AddRangeAsync(entities);
+    }
 }
 

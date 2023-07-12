@@ -106,7 +106,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"dateTimeBooking\": \"2023-07-11T19:00:00\",\r\n  \"quantitySeats\": 5\r\n}",
+					"raw": "{\r\n  \"dateTimeBooking\": \"2023-07-15T19:00:00\",\r\n  \"quantitySeats\": 10\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -114,42 +114,6 @@
 					}
 				},
 				"url": "{{HOST}}/api/Tables/find"
-			},
-			"response": []
-		},
-		{
-			"name": "Lock Tables",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "[\r\n  \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n]",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{HOST}}/api/Tables/lock-table"
-			},
-			"response": []
-		},
-		{
-			"name": "Unlock Tables",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "[\r\n  \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n]",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{HOST}}/api/Tables/unlock-table"
 			},
 			"response": []
 		}

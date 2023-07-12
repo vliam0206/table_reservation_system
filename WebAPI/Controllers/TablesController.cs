@@ -170,7 +170,7 @@ public class TablesController : ControllerBase
             }
             else
             {
-                var tables = suitableTables.Reverse().ToArray();
+                var tables = tableList.Reverse().ToArray();
                 var totalSeats = 0;
                 var index = 0;
                 List<TableViewModel> tmp = new List<TableViewModel>();

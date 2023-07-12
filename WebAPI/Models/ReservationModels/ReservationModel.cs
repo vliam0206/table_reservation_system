@@ -12,6 +12,7 @@ public class ReservationModel
     public string CustomerFullName { get; set; } = default!;
     public string CustomerEmail { get; set; } = default!;
     public string CustomerPhoneNumber { get; set; } = default!;
+    public List<Guid> TablesId { get; set; }
 }
 public class ReservationUpdateModel : ReservationModel
 {
