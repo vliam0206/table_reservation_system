@@ -92,8 +92,20 @@ public class ReservationsController : ControllerBase
             var reservation = _mapper.Map<Reservation>(reservationCreateDto);
             reservation.CustomerId = customer.Id;
 
+            var detailList = new List<ReservationTableDetail>();
+            foreach(var tableId in reservationCreateDto.TablesId)
+            {
+                detailList.Add(new ReservationTableDetail
+                {
+                    ReservationId = reservation.Id,
+                    TableId = tableId
+                });
+            }
+
             _unitOfWork.CustomerRepository.Add(customer);
             _unitOfWork.ReservationRepository.Add(reservation);
+            await _unitOfWork.ReservationTableRepository.AddRangeAsync(detailList);
+
             await _unitOfWork.SaveChangesAsync();
 
             var createdReservationDto = _mapper.Map<ReservationViewModel>(reservation);
