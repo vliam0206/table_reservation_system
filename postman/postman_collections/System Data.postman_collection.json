@@ -29,7 +29,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": ""
+				"url": "{{HOST}}/api/Tables/status-list"
 			},
 			"response": []
 		}
