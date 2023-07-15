@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "471a473e-7943-463d-b456-e99e9501646e",
+		"name": "Accounts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26236610"
+	},
+	"item": [
+		{
+			"name": "Get all acocunts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{HOST}}/api/Accounts"
+			},
+			"response": []
+		},
+		{
+			"name": "Get account by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{HOST}}/api/Accounts/64e1ff96-c2f4-44da-a8ee-1de73e2af0bc"
+			},
+			"response": []
+		},
+		{
+			"name": "Create account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"lam\",\r\n  \"password\": \"123\",\r\n  \"fullName\": \"Lam Test\",\r\n  \"role\": \"Staff\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{HOST}}/api/Accounts"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{HOST}}/api/Accounts/1b91d719-eb7e-4238-88c1-b552441530e2"
+			},
+			"response": []
+		}
+	]
+}

@@ -116,6 +116,30 @@
 				"url": "{{HOST}}/api/Tables/find"
 			},
 			"response": []
+		},
+		{
+			"name": "Update Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{HOST}}/api/Tables/update-status/6b4443c2-c2e2-4f47-87e0-f5dc6ddea4e8"
+			},
+			"response": []
 		}
 	]
 }
