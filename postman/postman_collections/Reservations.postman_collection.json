@@ -55,7 +55,7 @@
 			"response": []
 		},
 		{
-			"name": "UpdateReservationStatus",
+			"name": "Update Reservation",
 			"request": {
 				"auth": {
 					"type": "bearer",
