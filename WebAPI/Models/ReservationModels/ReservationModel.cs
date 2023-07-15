@@ -18,3 +18,8 @@ public class ReservationUpdateModel : ReservationModel
 {
     public string Status { get; set; }
 }
+
+public class ReservationStatus
+{
+    public string Status { get; set; }
+}

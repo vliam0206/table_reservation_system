@@ -5,6 +5,7 @@ using Infrastructures.UnitOfWorks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
+using WebAPI.Models.ReservationModels;
 using WebAPI.Models.TableModels;
 
 namespace WebAPI.Controllers;
@@ -251,6 +252,40 @@ public class TablesController : ControllerBase
                 _unitOfWork.TableRepository.Update(table);
             }
             await _unitOfWork.SaveChangesAsync();
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponse()
+            {
+                Success = false,
+                ErrorMessage = ex.Message
+            });
+        }
+    }
+
+    [HttpPut("update-status/{id}")]
+    [Authorize]
+    public async Task<IActionResult> UpdateTableStatus(Guid id, ReservationStatus model)
+    {
+        try
+        {
+            var table = await _unitOfWork.TableRepository.GetByIdAsync(id);
+            if (table == null)
+            {
+                return NotFound(new ApiResponse
+                {
+                    Success = false,
+                    ErrorMessage = "Table not found"
+                });
+            }
+
+            table.Status = Enum.Parse<TableEnum>(model.Status);
+
+            _unitOfWork.TableRepository.Update(table);
+
+            await _unitOfWork.SaveChangesAsync();
+
             return NoContent();
         }
         catch (Exception ex)
