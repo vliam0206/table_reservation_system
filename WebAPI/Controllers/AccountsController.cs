@@ -6,6 +6,7 @@ using WebAPI.Models;
 using WebAPI.Models.AccountModels;
 using Domain.Entities;
 using Application.Utils;
+using Microsoft.IdentityModel.Tokens;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -64,8 +65,8 @@ namespace WebAPI.Controllers
             try
             {
                 var acc = (await _unitOfWork.AccountRepository.GetAllAsync())
-                            .Where(x => x.UserName.Equals(model.UserName));
-                if (acc != null)
+                            .Where(x => x.UserName.Equals(model.UserName)).ToList();
+                if (!acc.IsNullOrEmpty())
                 {
                     return BadRequest(new ApiResponse()
                     {
