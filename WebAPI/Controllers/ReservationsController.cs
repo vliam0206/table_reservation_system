@@ -1,10 +1,12 @@
-﻿using AutoMapper;
+﻿using Application.IServices;
+using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
 using Infrastructures.UnitOfWorks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebAPI.Models;
 using WebAPI.Models.ReservationModels;
 using WebAPI.Models.TableModels;
@@ -17,11 +19,14 @@ public class ReservationsController : ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IEmailService _emailService;
 
-    public ReservationsController(IUnitOfWork unitOfWork, IMapper mapper)
+    public ReservationsController(IUnitOfWork unitOfWork, IMapper mapper,
+                                        IEmailService emailService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _emailService = emailService;
     }
 
     [HttpGet]
@@ -108,6 +113,24 @@ public class ReservationsController : ControllerBase
 
             await _unitOfWork.SaveChangesAsync();
 
+            
+            //Get project's directory and fetch DefaultTemplate content from EmailTemplates
+            string exePath = Environment.CurrentDirectory.ToString();
+            if (exePath.Contains(@"\bin\Debug\net7.0"))
+                exePath = exePath.Remove(exePath.Length - (@"\bin\Debug\net7.0").Length);
+            string FilePath = exePath + @"\EmailTemplates\DefaultTemplate.html";
+            StreamReader streamreader = new StreamReader(FilePath);
+            string mailText = streamreader.ReadToEnd();
+            streamreader.Close();
+            //Replace email informations
+            mailText = mailText.Replace("[CustomerFullName]", customer.FullName);
+            mailText = mailText.Replace("[DateTimeBooking]", reservation.DateTimeBooking.ToString("f"));
+            mailText = mailText.Replace("[CustomerQuantity]", reservation.CustomerQuantity.ToString());
+            mailText = mailText.Replace("[Note]", reservation.Note);
+            // Send email to customer (send reservation information)
+            await _emailService.SendMailAsync(new List<string> { customer.Email }, "Reservation confirmation", mailText);
+            
+            // return ok response to FE
             var createdReservationDto = _mapper.Map<ReservationViewModel>(reservation);
 
             return CreatedAtAction(nameof(GetReservation), new { id = reservation.Id }, new ApiResponse(){
