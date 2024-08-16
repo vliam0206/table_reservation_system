@@ -1,14 +1,4 @@
 # Table Reservation System
-Restful APIs for the SWD392 Final group project - Sum23 at FPTU HCMC.
-
-
-## Postman Collections
-- [Postman collections](./postman/postman_collections/)
-- [Postman environments](./postman/postman_environments/)
-## License & Copyright 
-&copy; 2023 LamVo
-
-# Table Reservation System
 
 :wave: Welcome to Table Reservation System (back-end project) :wave:
 
