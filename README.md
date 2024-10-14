@@ -15,7 +15,7 @@
 ## Description
 - Restful APIs for managing a Table Reservation System for restaurants.
 - This project was developed as part of the SWD392 Final group project - Summer 2023 at FPT University HCMC.
-- The back-end project started from [Start Date] to [End Date].
+- The back-end project started from 01-06-2023 to 15-06-2023.
 
 ## Preview Screenshot
 
