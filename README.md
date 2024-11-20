@@ -9,7 +9,7 @@
   - [Functional requirements](#functional-requirements)
   - [Useful Resources](#useful-resources)
   - [Contributors](#contributors)
-  - [Code first](#code-first)
+  - [Notice: Code first](#notice-code-first)
   - [License & Copyright](#license--copyright)
 
 ## Description
@@ -28,21 +28,13 @@
 </div>
 
 ## Technology
-**1. Backend**
-  - ASP.NET 7 Web API
+**1. Backend:** ASP.NET 7 Web API
 
-**2. Database**
-  - MSSQL Server 19
+**2. Database:** MSSQL Server 19
 
-**3. Other Technologies**
-  - Entity Framework Core
-  - LINQ for data querying
-  - RESTful API design
+**3. Other Technologies:** Entity Framework Core, LINQ for data querying, RESTful API design
 
-**4. Tool**
-  - Visual Studio.NET
-  - SQL Server Management Studio 19
-  - Postman
+**4. Tool:** Visual Studio.NET, SQL Server Management Studio 19, Postman
 
 ## Functional requirements
 **1. Customer:**
@@ -73,8 +65,8 @@
 - [Dang Hoang Anh](https://github.com/danghoanganh36) - SE160846 - **Front-end Developer**
 - [Nguyen Trung Thong](https://github.com/thongnt0208) - SE160850 - **Front-end Developer**
 
-## Code first
-To apply the latest migrations to your physical database (MSSQL Server), run this command(run the command from table-reservation-system folder)
+## Notice Code first
+To apply the latest migrations to your physical database (MSSQL Server), run this command (run the command from table-reservation-system folder)
 ```
 dotnet ef database update -s WebAPI -p DataAccess
 ```
