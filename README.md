@@ -74,4 +74,4 @@ dotnet ef database update -s WebAPI -p DataAccess
 ## License & Copyright 
 &copy; 2023 LamVo
 
-
+This project is licensed under Apache License, Version 2.0. See the [LICENSE](./LICENSE) file for details.
